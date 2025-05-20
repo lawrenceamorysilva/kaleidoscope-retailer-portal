@@ -67,6 +67,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "host": "retailer.localhost",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "retailer-portal:build:production"
