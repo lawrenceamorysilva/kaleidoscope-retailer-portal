@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>Shipping Cost Sandbox</h2>
+  <div class="form-container">
+    <div class="form-group">
+      <label for="postcode">Postcode:</label>
+      <input id="postcode" [(ngModel)]="postcode" placeholder="e.g., 810" />
+    </div>
+    <div class="form-group">
+      <label for="suburb">Suburb:</label>
+      <input id="suburb" [(ngModel)]="suburb" placeholder="e.g., ALAWA" />
+    </div>
+    <div class="form-group">
+      <label for="weight">Weight (kg):</label>
+      <input
+        id="weight"
+        type="number"
+        [(ngModel)]="weight"
+        placeholder="e.g., 2"
+        step="0.1"
+      />
+    </div>
+    <button (click)="onSubmit()">Submit</button>
+  </div>
+
+  <div *ngIf="error" class="error-alert">
+    <strong>Error:</strong> {{ error }}
+  </div>
+
+  <div *ngIf="shippingData" class="result">
+    <h3>Input Values</h3>
+    <p><strong>Postcode:</strong> {{ shippingData.postcode }}</p>
+    <p><strong>Suburb:</strong> {{ inputSuburb }}</p>
+    <p><strong>Weight:</strong> {{ shippingData.weight }} kg</p>
+
+    <h3>Shipping Options</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Courier</th>
+          <th>Suburb</th>
+          <th>Cost</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let option of shippingData.options">
+          <td>{{ option.courier }}</td>
+          <td>{{ option.suburb }}</td>
+          <td>{{ option.cost | currency : "AUD" }}</td>
+          <td>
+            {{ option.courier === shippingData.default.courier ? "Yes" : "" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
