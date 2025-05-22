@@ -20,6 +20,11 @@ export class SandboxComponent {
 
   constructor(private shippingService: ShippingService) {}
 
+  onSuburbInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.suburb = input.value.toUpperCase();
+  }
+
   onSubmit() {
     this.error = ''; // Clear previous error
     this.shippingData = null; // Clear previous data
