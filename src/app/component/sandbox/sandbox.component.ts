@@ -17,6 +17,7 @@ export class SandboxComponent {
   inputSuburb: string = '';
   shippingData: any = null;
   error: string = '';
+  loading: boolean = false; // <-- Add this
 
   constructor(private shippingService: ShippingService) {}
 
@@ -25,9 +26,18 @@ export class SandboxComponent {
     this.suburb = input.value.toUpperCase();
   }
 
+  clearForm() {
+    this.postcode = '';
+    this.suburb = '';
+    this.weight = null;
+    this.shippingData = null;
+    this.error = '';
+  }
+
   onSubmit() {
-    this.error = ''; // Clear previous error
-    this.shippingData = null; // Clear previous data
+    this.error = '';
+    this.shippingData = null;
+    this.loading = true; // <-- Start loading
 
     if (
       !this.postcode ||
@@ -37,6 +47,7 @@ export class SandboxComponent {
     ) {
       this.error =
         'Please fill all fields with valid values (postcode, suburb, and weight > 0).';
+      this.loading = false; // <-- Stop loading if validation fails
       return;
     }
 
@@ -45,15 +56,16 @@ export class SandboxComponent {
       .getShippingCost(this.postcode, this.suburb, this.weight)
       .subscribe({
         next: (data) => {
+          this.loading = false; // <-- Stop loading on success
           if (data.error) {
-            this.error = data.error; // Use API error message
+            this.error = data.error;
             this.shippingData = null;
           } else {
             this.shippingData = data;
           }
         },
         error: (err) => {
-          // Extract error message from API response if available
+          this.loading = false; // <-- Stop loading on error
           this.error =
             err.error?.error ||
             'Error fetching shipping costs. Please check your connection and try again.';

@@ -6,19 +6,41 @@ $yellow: #ffc107;
 $creamy-bg: #fff5eb;
 $white: #ffffff;
 
-// Bootstrap overrides
+/* New dark mode colors */
+$dark-bg: #121212;
+$dark-card-bg: #1e1e1e;
+$dark-text: #e0e0e0;
+$dark-border: #444;
+$dark-blue: #375a7f;
+$dark-red: #b53849;
+
+/* Bootstrap overrides */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: $creamy-bg;
+  color: #212529;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .container {
   background-color: $creamy-bg;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  color: #212529;
+  border-radius: 10px;
 }
 
 .card {
   background-color: $white;
   border-radius: 10px;
   transition: box-shadow 0.3s ease;
+  color: #212529;
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -27,16 +49,22 @@ $white: #ffffff;
 
 .form-control {
   transition: border-color 0.3s ease;
+  background-color: $white;
+  color: #212529;
+  border: 1px solid #ced4da;
 
   &:focus {
     border-color: $yellow;
     box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+    background-color: $white;
+    color: #212529;
   }
 }
 
 .submit-btn {
   background-color: $green;
   transition: background-color 0.2s ease;
+  color: $white;
 
   &:hover {
     background-color: $green-hover;
@@ -54,6 +82,8 @@ $white: #ffffff;
 .table {
   border-radius: 8px;
   overflow: hidden;
+  background-color: $white;
+  color: #212529;
 
   th,
   td {
@@ -62,6 +92,7 @@ $white: #ffffff;
 
   .table-dark {
     background-color: $blue;
+    color: $white;
   }
 }
 
@@ -69,4 +100,76 @@ $white: #ffffff;
   border-radius: 8px;
   margin-bottom: 5px;
   background-color: $white;
+  color: #212529;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: $dark-bg;
+    color: $dark-text;
+  }
+
+  .container {
+    background-color: $dark-card-bg;
+    color: $dark-text;
+  }
+
+  .card {
+    background-color: $dark-card-bg;
+    color: $dark-text;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(255 255 255 / 0.1);
+    }
+  }
+
+  .form-control {
+    background-color: #2c2c2c;
+    color: $dark-text;
+    border: 1px solid $dark-border;
+
+    &:focus {
+      border-color: $yellow;
+      box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+      background-color: #2c2c2c;
+      color: $dark-text;
+    }
+  }
+
+  .submit-btn {
+    background-color: $dark-blue;
+    color: $white;
+
+    &:hover {
+      background-color: darken($dark-blue, 10%);
+    }
+  }
+
+  .alert-danger {
+    background-color: $dark-red;
+    border-color: darken($dark-red, 10%);
+    color: $white;
+  }
+
+  .table {
+    background-color: transparent;
+    color: $dark-text;
+
+    .table-dark {
+      background-color: #212529;
+      color: $dark-text;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #333;
+    }
+  }
+
+  .list-group-item {
+    background-color: $dark-card-bg;
+    color: $dark-text;
+  }
 }

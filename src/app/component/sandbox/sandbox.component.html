@@ -9,7 +9,8 @@
           class="form-control"
           [(ngModel)]="postcode"
           name="postcode"
-          placeholder="e.g., 810"
+          placeholder=""
+          autocomplete="off"
         />
       </div>
       <div class="mb-3">
@@ -20,7 +21,8 @@
           [(ngModel)]="suburb"
           (input)="onSuburbInput($event)"
           name="suburb"
-          placeholder="e.g., ALAWA"
+          placeholder=""
+          autocomplete="off"
         />
       </div>
       <div class="mb-3">
@@ -31,17 +33,36 @@
           class="form-control"
           [(ngModel)]="weight"
           name="weight"
-          placeholder="e.g., 2"
+          placeholder=""
           step="0.1"
+          autocomplete="off"
         />
       </div>
       <button
         type="button"
         class="btn btn-primary w-100 submit-btn"
         (click)="onSubmit()"
+        [disabled]="loading"
       >
-        Submit
+        <span *ngIf="!loading">Submit</span>
+        <span *ngIf="loading">Submitting...</span>
       </button>
+      <button
+        type="button"
+        class="btn btn-secondary w-100 mt-2"
+        (click)="clearForm()"
+        [disabled]="loading"
+      >
+        Clear Form
+      </button>
+
+      <div
+        *ngIf="loading"
+        class="text-center mt-3 animate__animated animate__fadeIn animate__faster"
+      >
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="mt-2">Loading shipping options...</div>
+      </div>
     </form>
 
     <div
@@ -53,19 +74,6 @@
     </div>
 
     <div *ngIf="shippingData" class="mt-4">
-      <!-- <h3 class="mb-3">Input Values</h3>
-      <ul class="list-group mb-4">
-        <li class="list-group-item">
-          <strong>Postcode:</strong> {{ shippingData.postcode }}
-        </li>
-        <li class="list-group-item">
-          <strong>Suburb:</strong> {{ inputSuburb }}
-        </li>
-        <li class="list-group-item">
-          <strong>Weight:</strong> {{ shippingData.weight }} kg
-        </li>
-      </ul> -->
-
       <h3 class="mb-3">Shipping Options</h3>
       <table class="table table-striped table-hover">
         <thead class="table-dark">
