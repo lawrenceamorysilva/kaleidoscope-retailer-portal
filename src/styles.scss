@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@use "sass:color";
+
+$dark-bg: #121212;
+$light-bg: #ffffff;
+$dark-text: #e0e0e0;
+$light-text: #212529;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $light-bg;
+  color: $light-text;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background-color: $dark-bg;
+    color: $dark-text;
+  }
+}
